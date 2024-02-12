@@ -22,31 +22,33 @@ from bankcsvtoqif.banks import BankAccountConfig
 from datetime import datetime
 
 
-class DBMaster(BankAccountConfig):
-    """ Deutsche Bank Mastercard """
+class CCM(BankAccountConfig):
+    """ Unicaja """
 
     def __init__(self):
         BankAccountConfig.__init__(self)
-        self.delimiter = ';'
+        self.delimiter = ','
         self.quotechar = '"'
         self.dropped_lines = 5
-        self.default_source_account = 'Liabilities:Deutsche Bank Master Card'
-        self.default_target_account = 'Imbalance-EUR'
+        self.default_source_account = 'Family CCM Ck.'
+        self.default_target_account = 'Family CCM Ck.'
 
     def get_date(self, line):
-        s = line[0].split('.')
+        s = line[0].split('/')
         return datetime(int(s[2]), int(s[1]), int(s[0]))
 
     def get_description(self, line):
-        return line[2]
-
-    def get_debit(self, line):
-        amount = self.get_amount(line[6])
-        return -amount if amount <= 0 else 0
-
-    def get_credit(self, line):
-        amount = self.get_amount(line[6])
-        return amount if amount >= 0 else 0
+        description = line[2]
+        return ' '.join(description.split())
 
     def get_category(self, line):
-        return ''
+        category = line[2]
+        return category
+
+    def get_debit(self, line):
+        val = float(line[3])
+        return -val if val >= 0 else 0
+
+    def get_credit(self, line):
+        val = float(line[3])
+        return val if val < 0 else 0
