@@ -30,8 +30,8 @@ class Unicaja(BankAccountConfig):
         self.delimiter = ','
         self.quotechar = '"'
         self.dropped_lines = 1
-        self.default_source_account = 'Juanjo USD'
-        self.default_target_account = 'Family CCM'
+        self.default_source_account = 'Family CCM Ck.'
+        self.default_target_account = 'Family CCM Ck.'
 
     def get_date(self, line):
         s = line[0].split('/')
