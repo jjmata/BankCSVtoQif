@@ -28,7 +28,7 @@ from bankcsvtoqif.banks.Unicaja import Unicaja
 class TestUnicaja(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """23,31/10/2023,AUTONOMOS 000384 052107451009,-323.21,EUR,"3,585.82",EUR,1784,0012,,,"""
+        self.csv = """05/02/2024,05/02/2024,STARBUCKS COMERCIO  02 02 2024,-3.80,EUR,"6,787.87",EUR,1960,0048,,,"""
 
     def test_can_instantiate(self):
         account_config = Unicaja()
@@ -37,10 +37,10 @@ class TestUnicaja(unittest.TestCase):
     def test_getters(self):
         account_config = Unicaja()
         line = csvline_to_line(self.csv, account_config)
-        date = datetime(2023, 10, 31)
-        description = "AUTONOMOS 000384 052107451009"
+        date = datetime(2024, 2, 5)
+        description = "STARBUCKS COMERCIO 02 02 2024"
         category = ""
-        debit = -323.21
+        debit = 3.80
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
