@@ -22,14 +22,14 @@ from bankcsvtoqif.banks import BankAccountConfig
 from datetime import datetime
 
 
-class CCM(BankAccountConfig):
+class Unicaja(BankAccountConfig):
     """ Unicaja """
 
     def __init__(self):
         BankAccountConfig.__init__(self)
         self.delimiter = ','
         self.quotechar = '"'
-        self.dropped_lines = 5
+        self.dropped_lines = 1
         self.default_source_account = 'Family CCM Ck.'
         self.default_target_account = 'Family CCM Ck.'
 
@@ -42,13 +42,12 @@ class CCM(BankAccountConfig):
         return ' '.join(description.split())
 
     def get_category(self, line):
-        category = line[2]
-        return category
-
-    def get_debit(self, line):
-        val = float(line[3])
-        return -val if val >= 0 else 0
+        return ''
 
     def get_credit(self, line):
         val = float(line[3])
-        return val if val < 0 else 0
+        return val if val >= 0 else 0
+
+    def get_debit(self, line):
+        val = float(line[3])
+        return -val if val < 0 else 0

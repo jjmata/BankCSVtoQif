@@ -28,7 +28,7 @@ from bankcsvtoqif.banks.N26 import N26
 class TestN26(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """"2018-12-24","STARBUCKS","","MasterCard Payment","","Bars & Restaurants","-20.6","-18.47","GBP","1.11","""
+        self.csv = """"2024-01-12","WWW CINESA ES","","MasterCard Payment","-","-15.8","-15.8","EUR","1.0"""
 
     def test_can_instantiate(self):
         account_config = N26()
@@ -37,10 +37,10 @@ class TestN26(unittest.TestCase):
     def test_getters(self):
         account_config = N26()
         line = csvline_to_line(self.csv, account_config)
-        date = datetime(2018, 12, 24)
-        description = "STARBUCKS / MasterCard Payment"
-        category = "Bars & Restaurants"
-        debit = 20.6
+        date = datetime(2024, 1, 12)
+        description = "WWW CINESA ES"
+        category = ""
+        debit = 15.8
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
